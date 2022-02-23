@@ -1,0 +1,61 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-6">
+            <div class="box">
+                <div class="box-header">
+                    <br>
+                    <div class="input-group input-group-lg" style="width: 500px;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                        
+                    </div>
+                    <h2>Work</h2>
+                    <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.</h5>
+                </div>
+                
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <!-- <th>Title</th>
+                                <th>Status</th> -->
+                            </tr>
+                            {% for article in articles %}
+                            <tr>
+                                <td><a href="{% url 'task_details' article.id %}"><h4>{{article.title}}</h4></a><h5>{{article.created_at | date}}</h5></td>
+                                
+                                {% if article.status == 'Active Task' %}
+                                <td><h4><span class="label label-success">Active Task</span></h4></td>
+                                {% elif article.status == 'Assigned to me' %}
+                                <td><h4><span class="label label-primary"> Assigned </span></h4></td>
+                                {% elif article.status == 'Completed' %}
+                                <td><h4><span class="label label-warning"> Completed </span></h4></td>
+                                {% elif article.status == 'Upcoming' %}
+                                <td><h4><span class="label label-default"> Upcoming </span></h4></td>
+                                {% else %}
+                                <td><h4><span class="label label-info"> Overdue </span></h4></td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+
+{% endblock %}
